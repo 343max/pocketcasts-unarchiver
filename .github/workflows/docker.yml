@@ -1,0 +1,16 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: 343max/pocketcasts-unarchiver:latest
