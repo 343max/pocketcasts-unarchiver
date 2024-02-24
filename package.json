@@ -1,0 +1,17 @@
+{
+  "name": "pocketcasts-unarchiver",
+  "module": "src/main.ts",
+  "type": "module",
+  "scripts": {
+    "main": "bun src/main.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "pocketcasts": "^1.0.1"
+  }
+}
