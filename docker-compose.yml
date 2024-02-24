@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  unarchiver:
+    image: unarchiver
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      POCKET_CASTS_EMAIL: $POCKET_CASTS_EMAIL
+      POCKET_CASTS_PASSWORD: $POCKET_CASTS_PASSWORD
+    stop_grace_period: 1s

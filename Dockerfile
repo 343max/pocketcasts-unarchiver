@@ -1,4 +1,4 @@
-FROM oven/bun:latest
+FROM oven/bun:alpine
 
 WORKDIR /usr/src/app
 
@@ -7,4 +7,6 @@ RUN bun install --frozen-lockfile
 
 COPY . .
 
-ENTRYPOINT [ "bun", "run", "src/main.ts" ]
+RUN (crontab -l; echo "0 1 * * *  cd /usr/src/app && bun run main") | crontab -
+
+CMD ["crond", "-f"]
