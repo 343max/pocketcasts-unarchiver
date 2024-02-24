@@ -9,4 +9,6 @@ services:
     environment:
       POCKET_CASTS_EMAIL: $POCKET_CASTS_EMAIL
       POCKET_CASTS_PASSWORD: $POCKET_CASTS_PASSWORD
+      POCKET_CASTS_PODCAST_TITLE: $POCKET_CASTS_PODCAST_TITLE
     stop_grace_period: 1s
+    command: ["bun", "run", "main"]
