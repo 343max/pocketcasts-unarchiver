@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { podcastSchema } from "./podcast"
+import { bookmarksResponseSchema } from "./bookmarks"
 
 export const pocketCastsLogin = async (email: string, password: string) => {
   const api = "https://api.pocketcasts.com/"
@@ -20,8 +21,11 @@ export const pocketCastsLogin = async (email: string, password: string) => {
       body: body === undefined ? undefined : JSON.stringify(body),
     })
 
-    return model.parse(await response.json())
+    const json = await response.json()
+    return model.parse(json)
   }
+
+  const timestamp = () => Math.floor(new Date().getTime() / 1000)
 
   const login = async () => {
     return unauthorizedRequest(
@@ -55,6 +59,17 @@ export const pocketCastsLogin = async (email: string, password: string) => {
   return {
     podcastList: async () => {
       return request("POST", "user/podcast/list", z.object({ podcasts: z.array(podcastSchema) }))
+    },
+    bookmarks: async (podcastUuid: string) => {
+      return await request("POST", "user/podcast/episodes/bookmarks", bookmarksResponseSchema, {
+        uuid: podcastUuid,
+      })
+    },
+    archive: async (archive: boolean, episodes: Array<{ uuid: string; podcast: string }>): Promise<void> => {
+      await request("POST", "sync/update_episodes_archive", z.object({}), {
+        archive,
+        episodes,
+      })
     },
   }
 }
