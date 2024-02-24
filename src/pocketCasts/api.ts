@@ -71,5 +71,16 @@ export const pocketCastsLogin = async (email: string, password: string) => {
         episodes,
       })
     },
+    updateEpisode: async (
+      episodeUuid: string,
+      podcastUuid: string,
+      update: { position: string; status: number }
+    ): Promise<void> => {
+      await request("POST", "sync/update_episode", z.object({}), {
+        uuid: episodeUuid,
+        podcast: podcastUuid,
+        ...update,
+      })
+    },
   }
 }

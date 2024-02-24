@@ -14,6 +14,14 @@ const main = async () => {
     archivedEpisodes.map((uuid) => ({ uuid, podcast: podcast.uuid }))
   )
   console.log(`unarchived ${archivedEpisodes.length} episodes of '${podcast.title}'`)
+  const startedEpisodes = bookmarks.episodes.filter(({ playedUpTo }) => playedUpTo > 0).map(({ uuid }) => uuid)
+  console.log(`resetting ${startedEpisodes.length} episodes of '${podcast.title}'`)
+  for (const episodeUuid of startedEpisodes) {
+    await pocketcasts.updateEpisode(episodeUuid, podcast.uuid, { position: "0", status: 2 })
+    process.stdout.write(".")
+  }
+  console.log()
+  console.log(`reset ${startedEpisodes.length} episodes of '${podcast.title}'`)
 }
 
 main()
