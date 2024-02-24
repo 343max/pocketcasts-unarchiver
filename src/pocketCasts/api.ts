@@ -25,8 +25,6 @@ export const pocketCastsLogin = async (email: string, password: string) => {
     return model.parse(json)
   }
 
-  const timestamp = () => Math.floor(new Date().getTime() / 1000)
-
   const login = async () => {
     return unauthorizedRequest(
       "POST",
